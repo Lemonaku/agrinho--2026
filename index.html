@@ -13,7 +13,7 @@
 
 <header class="topbar">
 <div class="brand">Agro<span>Pulse</span></div>
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
+<button class="menu-btn">☰</button>
 <nav id="menu">
 <a href="#home">Início</a>
 <a href="#tech">Tecnologias</a>
@@ -92,9 +92,9 @@ emissão de carbono e perda de biodiversidade.
 </p>
 </div>
 <div class="impact-board">
-<button onclick="mostrarImpacto('Desmatamento reduz biodiversidade e altera o equilíbrio climático.')">Desmatamento</button>
-<button onclick="mostrarImpacto('Uso excessivo da água pressiona rios, nascentes e aquíferos.')">Uso da água</button>
-<button onclick="mostrarImpacto('Emissões de carbono intensificam o aquecimento global.')">Carbono</button>
+<button>Desmatamento</button>
+<button>Uso da água</button>
+<button>Carbono</button>
 <p id="impactoTexto">Clique em um desafio para visualizar.</p>
 </div>
 </section>
@@ -117,7 +117,7 @@ emissão de carbono e perda de biodiversidade.
 <div class="module">
 <h3>Calculadora de economia de água</h3>
 <input type="number" id="agua" placeholder="Litros usados por mês" />
-<button onclick="calcular()">Calcular</button>
+<button id="botaoCalcular">Calcular</button>
 <div class="meter"><div id="meterFill"></div></div>
 <p id="resultado"></p>
 </div>
@@ -146,79 +146,8 @@ emissão de carbono e perda de biodiversidade.
 <p>AgroPulse — produção inteligente para um planeta vivo.</p>
 </footer>
 
-<script>
-function toggleMenu() {
-document.getElementById("menu").classList.toggle("open");
-}
-
-function mostrarImpacto(texto) {
-document.getElementById("impactoTexto").textContent = texto;
-}
-
-function calcular() {
-const agua = Number(document.getElementById("agua").value);
-const resultado = document.getElementById("resultado");
-const fill = document.getElementById("meterFill");
-
-if (!agua || agua <= 0) {
-resultado.textContent = "Digite um valor válido.";
-fill.style.width = "0";
-return;
-}
-
-const economia = agua * 0.3;
-resultado.textContent = `Economia estimada: ${economia.toFixed(0)} litros/mês.`;
-fill.style.width = "70%";
-}
-
-const quiz = [
-{
-q: "Qual tecnologia ajuda a mapear lavouras?",
-a: ["Drones", "Queimada", "Desmatamento"],
-c: 0
-},
-{
-q: "Qual prática protege o solo?",
-a: ["Rotação de culturas", "Erosão", "Monocultura sem manejo"],
-c: 0
-},
-{
-q: "Qual fonte é renovável?",
-a: ["Diesel", "Carvão", "Solar"],
-c: 2
-}
-];
-
-let etapa = 0;
-let score = 0;
-
-function carregarPergunta() {
-const item = quiz[etapa];
-document.getElementById("pergunta").textContent = item.q;
-document.getElementById("respostas").innerHTML = "";
-
-item.a.forEach((texto, i) => {
-const btn = document.createElement("button");
-btn.textContent = texto;
-btn.onclick = () => responder(i);
-document.getElementById("respostas").appendChild(btn);
-});
-}
-
-function responder(i) {
-if (i === quiz[etapa].c) score++;
-etapa++;
-
-if (etapa < quiz.length) {
-carregarPergunta();
-} else {
-document.getElementById("pergunta").textContent = "Quiz finalizado.";
-document.getElementById("respostas").innerHTML = "";
-document.getElementById("pontuacao").textContent = `Pontuação: ${score}/${quiz.length}`;
-}
-}
-
-carregarPergunta();
+<script src="script.js">
+  
 </script>
 </body>
 </html>
